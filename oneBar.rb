@@ -61,20 +61,6 @@ until player <= 0 || enemy <= 0
     end
 
     # Move Calculator
-    if playerMove == "1"
-        enemy -= 10
-
-    elsif playerMove == "2"
-        enemy -= 20
-        player -= 10
-
-    elsif playerMove == "3"
-        player += 15
-        
-        if player > 100
-            player = 100
-        end
-    end
 
     if enemyMove == 1
         player -= 10
@@ -90,7 +76,23 @@ until player <= 0 || enemy <= 0
             enemy = 100
         end
     end
-    
+
+    if playerMove == "1"
+        enemy -= 10
+
+    elsif playerMove == "2"
+        enemy -= 20
+        player -= 10
+
+    elsif playerMove == "3"
+        player += 15
+        
+        if player > 100
+            player = 100
+        end
+    end    
+
+
     # Move Display
     if playerMove == "1"
         playerMove = "Mini Zap"
