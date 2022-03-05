@@ -117,7 +117,6 @@ until player <= 0 || enemy <= 0
     end
 
     puts ""
-    puts ""
     puts "Player used #{playerMove}, enemy used #{enemyMove}."
 end
 
