@@ -1,7 +1,10 @@
 import random
 
+<<<<<<< HEAD
 # Gay jake
 
+=======
+>>>>>>> 3960ef07878185acd8a0a58fd12deecb05509c8a
 player = 100
 enemy = 100
 gameState = 0
