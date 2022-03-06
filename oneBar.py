@@ -1,6 +1,6 @@
 import random
 
-# Hi
+# Gay jake
 
 player = 100
 enemy = 100
