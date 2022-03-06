@@ -2,6 +2,7 @@ import random
 
 player = 100
 enemy = 100
+gameState = 0
 
 # Move breakdown
 print ("")
@@ -9,10 +10,23 @@ print ("Welcome to One Bar")
 print ("Skill 1: Zap. Enemy -10")
 print ("Skill 2: Lightning Strike. Player -10, Enemy -20")
 print ("Skill 3: Heal Hacks. Player +15")
+print ("")
 
-while player > 0 and enemy > 0:
+# Opponent Bot
+bot = input("Which bot would you like to face (1,2) ")
+if bot != "1" and bot != "2":
+    gameState = 1
+
+while gameState == 0:
 
     # Health display
+
+    if player <= 0:
+        player = 0
+
+    if enemy <= 0:
+        enemy = 0
+
     print ("")
     print ("[",end="")
 
@@ -29,23 +43,30 @@ while player > 0 and enemy > 0:
     print ("]",enemy)
     print ("")
 
+    if player <= 0 or enemy <= 0:
+        break
+
     # AI Move
-    rng = random.randint(1,2)
-    if enemy > 30:
+    if bot == "1":
+        rng = random.randint(1,2)
+        if enemy > 30:
 
-        if rng == 1:
-            enemyMove = 1
+            if rng == 1:
+                enemyMove = 1
 
-        elif rng == 2:
-            enemyMove = 2
+            elif rng == 2:
+                enemyMove = 2
 
-    elif enemy <= 30:
+        elif enemy <= 30:
 
-        if rng == 1:
-            enemyMove
+            if rng == 1:
+                enemyMove = 1
 
-        elif rng == 2:
-            enemyMove = 3
+            elif rng == 2:
+                enemyMove = 3
+    if bot == "2":
+        print ("Bot 2 is in development.")
+        # Add AI here
 
     # Player input
     playerMove = input("What skill would you like to use (1,2,3) ")
@@ -103,10 +124,14 @@ while player > 0 and enemy > 0:
     print ("Player used " + playerMove + ", enemy used " + enemyMove)
 
 # End Screen
-print ("")
-if player <= 0:
+
+if player <= 0 and enemy > 0:
     print ("Eneny Wins")
 
-elif enemy <= 0:
+elif enemy <= 0 and player > 0:
     print ("Player Wins")
 
+elif enemy <= 0 and player <= 0:
+    print ("Draw")
+
+print ("")
