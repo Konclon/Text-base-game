@@ -1,5 +1,7 @@
 import random
 
+# Hi
+
 player = 100
 enemy = 100
 gameState = 0
