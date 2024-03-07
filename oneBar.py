@@ -1,13 +1,9 @@
 import random
-
-<<<<<<< HEAD
 # Gay jake
 
-=======
->>>>>>> 3960ef07878185acd8a0a58fd12deecb05509c8a
 player = 100
 enemy = 100
-gameState = 0
+gameRunning = True
 
 # Move breakdown
 print ("")
@@ -20,10 +16,9 @@ print ("")
 # Opponent Bot
 bot = input("Which bot would you like to face (1,2) ")
 if bot != "1" and bot != "2":
-    gameState = 1
+    gameRunning = 1
 
-while gameState == 0:
-
+while gameRunning == True:
     # Health display
 
     if player <= 0:
