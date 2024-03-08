@@ -16,32 +16,35 @@ def pipes(character):
         pipes.append("|")
     return "".join(pipes)
 
-def damage_calculator(player, enemy, player_move, enemy_bot):
-    match player_move:
-        case 1:
-            enemy.health -= 10
-        case 2:
-            enemy.health -= 20
-            player.health -= 10
-        case 3:
-            player.health += 15
-
-    match enemy_bot:
-        case 1:
-            enemy_move = bot1(enemy)
-
-    match enemy_move:
-        case 1:
-            player.health -= 10
-        case 2:
-            player.health -= 20
-            enemy.health -= 10
-        case 3:
-            enemy.health += 15
-
-def bot1(enemy):
-    if enemy.health > 30:
-        enemyMove = random.choice([1,2])
+def validate_number(variable,array):
+    if variable.lower() == "quit":
+        return "quit"
+    elif variable.isdigit() == False:
+        return False
+    elif (int(variable) in array) == False:
+        return False
     else:
-        enemyMove = random.choice([1,3])
+        return True
+
+def damage_calculator(player, enemy, player_move, enemy_move, moveset):
+    player.health += moveset[player_move][0]
+    enemy.health += moveset[player_move][1]
+
+    enemy.health += moveset[enemy_move][0]
+    player.health += moveset[enemy_move][1]
+
+def bot_move(enemy_bot,enemy):
+    if enemy_bot == 1:
+        if enemy.health > 30:
+            enemyMove = random.choice([1,2])
+        if enemy.health <= 30:
+            enemyMove = random.choice([1,3])
     return enemyMove
+
+def move_display(player_move, enemy_move, moveset):
+    player_move_text = moveset[player_move][2]
+    enemy_move_text = moveset[enemy_move][2]
+
+    print(f"    Player used {player_move_text}, Enemy used {enemy_move_text}")
+
+
