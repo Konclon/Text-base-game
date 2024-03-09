@@ -25,7 +25,7 @@ def main():
     else:
         enemy_bot = int(enemy_bot)
 
-    print()
+    print("\n\n",end="")
 
     while gameRunning == True:
 
@@ -50,6 +50,8 @@ def main():
 
             enemy_move = bot_move(enemy_bot,enemy)
             damage_calculator(player, enemy, player_move, enemy_move, moveset)
+
+            print ()
 
             move_display(player_move, enemy_move, moveset)
             print()
