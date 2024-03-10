@@ -104,6 +104,7 @@ def main():
                     damage_calculator(player, enemy, player1_move, player2_move, moveset_dict)
                     move_display(player1_move, player2_move, moveset_dict)
                     print()
+
     if bot == True:
         if (enemy.health == 0) and (player.health == 0):
             print("    draw lmao")
@@ -121,8 +122,6 @@ def main():
         elif player.health == 0:
             print("    player2 win yay")
         print()
-
-
 
 if __name__ == "__main__":
     main()
