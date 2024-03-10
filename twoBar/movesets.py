@@ -1,3 +1,10 @@
+# Stuff you must include
+# name
+# moves (arr [1,2,3])
+# player_health
+# enemy_health
+# moves 1,2,3
+
 set1 = {
     "name":"set1",
     "moves":[1,2,3],
