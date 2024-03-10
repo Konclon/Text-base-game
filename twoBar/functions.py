@@ -21,7 +21,7 @@ def validate_number(variable,array):
         return "quit"
     elif variable.isdigit() == False:
         return False
-    elif (int(variable) in array) == False:
+    elif (int(variable) not in array):
         return False
     else:
         return True
@@ -33,13 +33,33 @@ def damage_calculator(player, enemy, player_move, enemy_move, moveset):
     enemy.health += moveset[enemy_move][0]
     player.health += moveset[enemy_move][1]
 
-def bot_move(enemy_bot,enemy):
+def bot_move(enemy_bot,enemy,moveset_dict):
     if enemy_bot == 1:
         if enemy.health > 30:
             enemyMove = random.choice([1,2])
         if enemy.health <= 30:
             enemyMove = random.choice([1,3])
-    return enemyMove
+        return enemyMove
+
+    if enemy_bot == 2:
+        damages = []
+        for move in moveset_dict["moves"]:
+            damages += [moveset_dict[move][1]]
+        max_damage = min(damages)
+
+        if enemy.health > abs(max_damage):
+            return random.choice(moveset_dict["moves"])
+
+        if enemy.health <= abs(max_damage):
+            healing_moves = []
+
+            for move in moveset_dict["moves"]:
+                healing_to_bot = moveset_dict[move][0]
+
+                if healing_to_bot > 0:
+                    healing_moves += [move]
+
+            return random.choice(healing_moves)
 
 def move_display(player_move, enemy_move, moveset):
     player_move_text = moveset[player_move][2]
