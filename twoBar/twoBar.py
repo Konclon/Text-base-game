@@ -7,8 +7,8 @@ def main():
     moveset_name = moveset_dict["name"]
     print(f"    playing with '{moveset_name}'")
 
-    player = make_character(100)
-    enemy = make_character(100)
+    player = make_character(moveset_dict["player_health"])
+    enemy = make_character(moveset_dict["enemy_health"])
     gameRunning = True
 
     print ( """
