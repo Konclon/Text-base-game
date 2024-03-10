@@ -11,7 +11,7 @@ GAAAMMMMEEEEEE
 1. see that green 'code' button at the top of the git page, yeah click that and copy the url
 2. open terminal
 3. enter in 'cd desktop' 
-4. enter in 'git clone ' + url (this will create a folder in your desktop)
+4. enter in 'git clone {url}' (this will create a folder in your desktop)
 5. whole bunch of loading stuff appears
 
 ### navigate to twoBar directory
