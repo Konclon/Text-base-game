@@ -21,7 +21,7 @@ def main():
     # else:
     #     enemy_bot = int(enemy_bot)
 
-    bot_or_player = input("    play with 1.bot or 2.player: ")
+    bot_or_player = input("    play with 1 - bot or 2 - player (1,2): ")
     validation_result = validate_number(bot_or_player,[1,2])
 
     if (validation_result == False) or (validation_result == "quit"):
@@ -47,11 +47,11 @@ def main():
         print()
 
         if (player.health == 0) or (enemy.health == 0): break
-        
+
         moves_available = moveset_dict["moves"]
         player_move = input(f"    What skill would you like to use {moves_available}: ")
         print()
-        
+
         if bot == True:
             validation_result = validate_number(player_move,moveset_dict["moves"])
             if validation_result == "quit":
@@ -60,7 +60,7 @@ def main():
                 print("    invalid move\n")
             elif validation_result == True:
                 player_move = int(player_move)
-        
+
             enemy_move = bot_move(enemy_bot,enemy,moveset_dict)
             damage_calculator(player, enemy, player_move, enemy_move, moveset_dict)
 
@@ -68,52 +68,43 @@ def main():
             print()
 
         if bot == False:
+            numbers_arr = [1,2,3,4,5,6,7,8,9,0]
+
             if player_move.lower() == "quit":
                 break
+
             elif len(player_move) != 2:
-                print("    invalid move\n")
+                print("    input should be two digits\n")
+
+            # Validate input are numbers
+            elif (validate_number(player_move[0],numbers_arr) == False) or (validate_nmuber(player_move[1],number_arr) == False):
+                print("    input was not numbers")
+
             else:
-                first_chr = player_move[0]
-                second_chr = player_move[1]
+                first_chr = int(player_move[0])
+                second_chr = int(player_move[1])
 
-                validate_first = validate_number(first_chr,[1,2,3,4,5,6,7,8,9,0])
-                validate_second = validate_number(second_chr,[1,2,3,4,5,6,7,8,9,0])
-                
-                if (validate_first == True) and (validate_second == True):
+                # assignment of player1_move and player2_move from player_move
+                if first_chr <= 5:
+                    player1_move = int(first_chr)
+                    player2_move = int(second_chr) - 5
+                elif first_chr > 5:
+                    player1_move = int(second_chr)
+                    player2_move = int(first_chr) - 5
 
-                    first_chr = int(first_chr)
-                    second_chr = int(second_chr)
+                if player2_move == 0: player2_move = 5
 
-                    if first_chr <= 5:
-                        player1_move = int(first_chr)
-                        player2_move = int(second_chr) - 5
-                    elif first_chr > 5:
-                        player1_move = int(second_chr)
-                        player2_move = int(first_chr) - 5
+                # validate numbers are valid moves, eg move 5 does not exist
+                validate_first = validate_number(str(player1_move), moveset_dict["moves"])
+                validate_second = validate_number(str(player2_move), moveset_dict["moves"])
 
-                    if player2_move == 0: player2_move = 5
-
-                    validate_first = validate_number(str(player1_move), moveset_dict["moves"])
-                    validate_second = validate_number(str(player2_move), moveset_dict["moves"])
-
-                    if (validate_first == True) and (validate_second == True):
-                        damage_calculator(player, enemy, player1_move, player2_move, moveset_dict)
-                        move_display(player1_move, player2_move, moveset_dict)
-                        print()
-
-                    else: print("    invalid move\n")
-                else: print("    invalid move\n")
-    
+                if (validate_first == False) or (validate_second == False):
+                    print("    numbers out of range")
+                else:
+                    damage_calculator(player, enemy, player1_move, player2_move, moveset_dict)
+                    move_display(player1_move, player2_move, moveset_dict)
+                    print()
     if bot == True:
-        if (enemy.health == 0) and (player.health == 0):
-            print("    draw lmao")
-        elif enemy.health == 0:
-            print("    player1 win yay")
-        elif player.health == 0:
-            print("    player2 win yay")
-        print()
-  
-    if not bot:
         if (enemy.health == 0) and (player.health == 0):
             print("    draw lmao")
         elif enemy.health == 0:
@@ -121,6 +112,17 @@ def main():
         elif player.health == 0:
             print("    player lost :(")
         print()
-    
+
+    if not bot:
+        if (enemy.health == 0) and (player.health == 0):
+            print("    draw lmao")
+        elif enemy.health == 0:
+            print("    player1 win yay")
+        elif player.health == 0:
+            print("    player2 win yay")
+        print()
+
+
+
 if __name__ == "__main__":
     main()
