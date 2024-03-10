@@ -3,8 +3,9 @@ from functions import *
 import movesets
 
 def main():
-    moveset = movesets.set1
-    print(f"\n    playing with [{moveset}]\n")
+    moveset_dict = movesets.set1
+    moveset_name = moveset_dict["name"]
+    print(f"    playing with '{moveset_name}'")
 
     player = make_character(100)
     enemy = make_character(100)
@@ -25,7 +26,7 @@ def main():
     else:
         enemy_bot = int(enemy_bot)
 
-    print("\n\n",end="")
+    print()
 
     while gameRunning == True:
 
@@ -40,7 +41,7 @@ def main():
         player_move = input("    What skill would you like to use (1,2,3): ")
         print()
         
-        validation_result = validate_number(player_move,[1,2,3])
+        validation_result = validate_number(player_move,moveset_dict["moves"])
         if validation_result == "quit":
             break
         elif validation_result == False:
@@ -49,11 +50,9 @@ def main():
             player_move = int(player_move)
 
             enemy_move = bot_move(enemy_bot,enemy)
-            damage_calculator(player, enemy, player_move, enemy_move, moveset)
+            damage_calculator(player, enemy, player_move, enemy_move, moveset_dict)
 
-            print ()
-
-            move_display(player_move, enemy_move, moveset)
+            move_display(player_move, enemy_move, moveset_dict)
             print()
     
     if (enemy.health == 0) and (player.health == 0):
