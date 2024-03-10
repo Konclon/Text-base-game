@@ -41,7 +41,7 @@ def bot_move(enemy_bot,enemy,moveset_dict):
             enemyMove = random.choice([1,3])
         return enemyMove
 
-    if enemy_bot == 2:
+    if enemy_bot == 2: # main bot, avoids health < highest damaging move
         damages = []
         for move in moveset_dict["moves"]:
             damages += [moveset_dict[move][1]]
