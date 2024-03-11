@@ -12,9 +12,9 @@ set1 = {
     "player_health":100,
     "enemy_health":100,
     "intro_text": set1_intro_text,
-    1:[0,-10,"Zap"],
-    2:[-10,-20,"Lightning Strike"],
-    3:[15,0,"Heal Hacks"],
+    1:[0,-10,"Zap","additive"],
+    2:[-10,-20,"Lightning Strike","additive"],
+    3:[15,0,"Heal Hacks","additive"],
 }
 
 set2_intro_text = """
@@ -26,11 +26,12 @@ set2_intro_text = """
 
 set2 = {
     "name":"set2",
-    "moves":[1,2,3],
+    "moves":[1,2,3,4],
     "player_health":200,
     "enemy_health":200,
     "intro_text": set2_intro_text,
-    1:[0,-20,"Small jab"],
-    2:[-50,-80,"Big die"],
-    3:[35,-20,"Life steal"],
+    1:[0,-20,"Small jab","additive"],
+    2:[-50,-80,"Big die","additive"],
+    3:[35,-20,"Life steal","additive"],
+    4:[2,2,"cutInHalf","divisive"]
 }
