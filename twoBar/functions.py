@@ -62,7 +62,8 @@ def bot_move(enemy_bot,enemy,moveset_dict):
     if enemy_bot == 2: # main bot, avoids health < highest damaging move
         damages = []
         for move in moveset_dict["moves"]:
-            damages += [moveset_dict[move][1]]
+            if moveset_dict[move][3] == "additive":
+                damages += [moveset_dict[move][1]]
         max_damage = min(damages)
 
         if enemy.health > abs(max_damage):
@@ -72,10 +73,11 @@ def bot_move(enemy_bot,enemy,moveset_dict):
             healing_moves = []
 
             for move in moveset_dict["moves"]:
-                healing_to_bot = moveset_dict[move][0]
+                if moveset_dict[move][3] == "additive":
+                    healing_to_bot = moveset_dict[move][0]
 
-                if healing_to_bot > 0:
-                    healing_moves += [move]
+                    if healing_to_bot > 0:
+                        healing_moves += [move]
 
             return random.choice(healing_moves)
 
