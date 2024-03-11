@@ -31,8 +31,8 @@ set2 = {
     "player_health":200,
     "enemy_health":200,
     "intro_text": set2_intro_text,
-    1:[0,-30,"Small jab","additive"],
+    1:[0,-40,"Small jab","additive"],
     2:[-50,-80,"Big die","additive"],
-    3:[35,-15,"Life steal","additive"],
+    3:[35,-10,"Life steal","additive"],
     4:[2,2,"cutInHalf","divisive"]
 }
