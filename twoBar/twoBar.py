@@ -3,7 +3,7 @@ from functions import *
 import movesets
 
 def main():
-    moveset_dict = movesets.set1
+    moveset_dict = movesets.set2
     moveset_name = moveset_dict["name"]
     print(f"    playing with '{moveset_name}'")
 
@@ -21,11 +21,11 @@ def main():
     else:
         bot_or_player = int(bot_or_player)
 
-    if bot_or_player == 1:
-        bot = True
-        enemy_bot = 2
-    elif bot_or_player == 2:
-        bot = False
+        if bot_or_player == 1:
+            bot = True
+            enemy_bot = 2
+        elif bot_or_player == 2:
+            bot = False
 
     print()
 
@@ -52,11 +52,11 @@ def main():
             elif validation_result == True:
                 player_move = int(player_move)
 
-            enemy_move = bot_move(enemy_bot,enemy,moveset_dict)
-            damage_calculator(player, enemy, player_move, enemy_move, moveset_dict)
+                enemy_move = bot_move(enemy_bot,enemy,moveset_dict)
+                damage_calculator(player, enemy, player_move, enemy_move, moveset_dict)
 
-            move_display(player_move, enemy_move, moveset_dict)
-            print()
+                move_display(player_move, enemy_move, moveset_dict)
+                print()
 
         if bot == False:
             numbers_arr = [1,2,3,4,5,6,7,8,9,0]
