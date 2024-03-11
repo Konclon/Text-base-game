@@ -27,11 +27,29 @@ def validate_number(variable,array):
         return True
 
 def damage_calculator(player, enemy, player_move, enemy_move, moveset):
-    player.health += moveset[player_move][0]
-    enemy.health += moveset[player_move][1]
+    # additive
+    if moveset[player_move][3] == "additive":
+        player.health += moveset[player_move][0]
+        enemy.health += moveset[player_move][1]
+    if moveset[enemy_move][3] == "additive":
+        enemy.health += moveset[enemy_move][0]
+        player.health += moveset[enemy_move][1]
 
-    enemy.health += moveset[enemy_move][0]
-    player.health += moveset[enemy_move][1]
+    # multiplicative
+    if moveset[player_move][3] == "multiplicative":
+        player.health = player.health * moveset[player_move][0]
+        enemy.health = enemy.health * moveset[player_move][1]
+    if moveset[enemy_move][3] == "multiplicative":
+        enemy.health = enemy.health * moveset[enemy_move][0]
+        player.health = player.health * moveset[enemy_move][1]
+
+    # divisive
+    if moveset[player_move][3] == "divisive":
+        player.health = int(player.health / moveset[player_move][0])
+        enemy.health = int(enemy.health / moveset[player_move][1])
+    if moveset[enemy_move][3] == "divisive":
+        enemy.health = int(enemy.health / moveset[enemy_move][0])
+        player.health = int(player.health / moveset[enemy_move][1])
 
 def bot_move(enemy_bot,enemy,moveset_dict):
     if enemy_bot == 1:
