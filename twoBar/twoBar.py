@@ -68,7 +68,7 @@ def main():
                 print("    input should be two digits\n")
 
             # Validate input are numbers
-            elif (validate_number(player_move[0],numbers_arr) == False) or (validate_nmuber(player_move[1],number_arr) == False):
+            elif (validate_number(player_move[0],numbers_arr) == False) or (validate_number(player_move[1],number_arr) == False):
                 print("    input was not numbers")
 
             else:
