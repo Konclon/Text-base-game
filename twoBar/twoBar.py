@@ -9,22 +9,13 @@ def main():
 
     player = make_character(moveset_dict["player_health"])
     enemy = make_character(moveset_dict["enemy_health"])
-    gameRunning = True
 
-    print(moveset_dict["intro_text"])
-
-    # enemy_bot = input("    Which bot would you like to face (1 or 1): ")
-    # validation_result = validate_number(enemy_bot,[1,2])
-    # if (validation_result == False) or (validation_result == "quit") :
-    #     print("\n    invalid input")
-    #     gameRunning = False
-    # else:
-    #     enemy_bot = int(enemy_bot)
+    print(moveset_dict["intro_text"]) # already has newline front and back
 
     bot_or_player = input("    play with 1 - bot or 2 - player (1,2): ")
-    validation_result = validate_number(bot_or_player,[1,2])
 
-    if (validation_result == False) or (validation_result == "quit"):
+    gameRunning = True
+    if validate_bot_or_player(bot_or_player) == False:
         print("\n    invalid input")
         gameRunning = False
     else:
@@ -122,6 +113,13 @@ def main():
         elif player.health == 0:
             print("    player2 win yay")
         print()
+
+def validate_bot_or_player(bot_or_player):
+    validation_result = validate_number(bot_or_player,[1,2])
+    if (validation_result == False) or (validation_result == "quit"):
+        return False
+    else:
+        return True
 
 if __name__ == "__main__":
     main()
