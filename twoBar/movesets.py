@@ -19,9 +19,10 @@ set1 = {
 
 set2_intro_text = """
     Welcome to One Bar
-    Skill 1: Small jab
-    Skill 2: Big die. Wanna go the kaboom??
+    Skill 1: Small jab, takes 30 damage off your opponent
+    Skill 2: Big die. Wanna go the kaboom?? Takes damage off both people
     Skill 3: Life steal, healing but better
+    Skill 4: cutInHalf, cuts both healthbar in half
 """
 
 set2 = {
@@ -30,8 +31,8 @@ set2 = {
     "player_health":200,
     "enemy_health":200,
     "intro_text": set2_intro_text,
-    1:[0,-20,"Small jab","additive"],
+    1:[0,-30,"Small jab","additive"],
     2:[-50,-80,"Big die","additive"],
-    3:[35,-20,"Life steal","additive"],
+    3:[35,-15,"Life steal","additive"],
     4:[2,2,"cutInHalf","divisive"]
 }
