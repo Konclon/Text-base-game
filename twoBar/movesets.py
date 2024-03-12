@@ -37,4 +37,4 @@ set2 = {
     4:[2,2,"cutInHalf","divisive"]
 }
 
-# balance changes 0.1
+# balance change v0.1
