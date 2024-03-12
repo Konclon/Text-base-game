@@ -30,7 +30,7 @@ def move_option_display(moveset_dict,moves_available):
     moves_text = ["    |"]
 
     for move_number in moves_available:
-        move_text = moveset_dict[move_number][2]
+        move_text = moveset_dict[move_number]["name"]
         moves_text.append(f" {move_number}: {move_text} |")
 
     moves_text = "".join(moves_text)
@@ -39,30 +39,30 @@ def move_option_display(moveset_dict,moves_available):
 
 def damage_calculator(player, enemy, player_move, enemy_move, moveset):
     # additive
-    if moveset[player_move][3] == "additive":
-        player.health += moveset[player_move][0]
-        enemy.health += moveset[player_move][1]
-    if moveset[enemy_move][3] == "additive":
-        enemy.health += moveset[enemy_move][0]
-        player.health += moveset[enemy_move][1]
+    if moveset.moves_dict[player_move]["type"] == "additive":
+        player.health += moveset.moves_dict[player_move]["user"]
+        enemy.health += moveset.moves_dict[player_move]["opponent"]
+    if moveset.moves_dict[enemy_move]["type"] == "additive":
+        enemy.health += moveset.moves_dict[enemy_move]["user"]
+        player.health += moveset.moves_dict[enemy_move]["opponent"]
 
     # multiplicative
-    if moveset[player_move][3] == "multiplicative":
-        player.health = player.health * moveset[player_move][0]
-        enemy.health = enemy.health * moveset[player_move][1]
-    if moveset[enemy_move][3] == "multiplicative":
-        enemy.health = enemy.health * moveset[enemy_move][0]
-        player.health = player.health * moveset[enemy_move][1]
+    if moveset.moves_dict[player_move]["type"] == "multiplicative":
+        player.health = player.health * moveset.moves_dict[player_move]["user"]
+        enemy.health = enemy.health * moveset.moves_dict[player_move]["opponent"]
+    if moveset.moves_dict[enemy_move]["type"] == "multiplicative":
+        enemy.health = enemy.health * moveset.moves_dict[enemy_move]["user"]
+        player.health = player.health * moveset.moves_dict[enemy_move]["opponent"]
 
     # divisive
-    if moveset[player_move][3] == "divisive":
-        player.health = int(player.health / moveset[player_move][0])
-        enemy.health = int(enemy.health / moveset[player_move][1])
-    if moveset[enemy_move][3] == "divisive":
-        enemy.health = int(enemy.health / moveset[enemy_move][0])
-        player.health = int(player.health / moveset[enemy_move][1])
+    if moveset.moves_dict[player_move]["type"] == "divisive":
+        player.health = int(player.health / moveset.moves_dict[player_move]["user"])
+        enemy.health = int(enemy.health / moveset.moves_dict[player_move]["opponent"])
+    if moveset.moves_dict[enemy_move]["type"] == "divisive":
+        enemy.health = int(enemy.health / moveset.moves_dict[enemy_move]["user"])
+        player.health = int(player.health / moveset.moves_dict[enemy_move]["opponent"])
 
-def bot_move(enemy_bot,enemy,moveset_dict):
+def bot_move(enemy_bot,enemy,moveset):
     if enemy_bot == 1:
         if enemy.health > 30:
             enemyMove = random.choice([1,2])
@@ -72,29 +72,31 @@ def bot_move(enemy_bot,enemy,moveset_dict):
 
     if enemy_bot == 2: # main bot, avoids health < highest damaging move
         damages = []
-        for move in moveset_dict["moves"]:
-            if moveset_dict[move][3] == "additive":
-                damages += [moveset_dict[move][1]]
-        max_damage = min(damages)
+        moveset_dict = moveset.moves_dict
+
+        for move in moveset.moves:
+            if moveset_dict[move]["type"] == "additive":
+                damages += [moveset_dict[move]["opponent"]]
+        max_damage = min(damages) # because negative numbers (-50 does more damage than -10)
 
         if enemy.health > abs(max_damage):
-            return random.choice(moveset_dict["moves"])
+            return random.choice(moveset.moves)
 
         if enemy.health <= abs(max_damage):
-            healing_moves = []
 
-            for move in moveset_dict["moves"]:
-                if moveset_dict[move][3] == "additive":
-                    healing_to_bot = moveset_dict[move][0]
+            healing_moves = []
+            for move in moveset.moves:
+                if moveset_dict[move]["type"] == "additive":
+                    healing_to_bot = moveset_dict[move]["user"]
 
                     if healing_to_bot > 0:
                         healing_moves += [move]
 
             return random.choice(healing_moves)
 
-def moves_used_display(player_move, enemy_move, moveset):
-    player_move_text = moveset[player_move][2]
-    enemy_move_text = moveset[enemy_move][2]
+def moves_used_display(player_move, enemy_move, moveset_dict):
+    player_move_text = moveset_dict[player_move]["name"]
+    enemy_move_text = moveset_dict[enemy_move]["name"]
 
     print(f"    Player used {player_move_text}, Enemy used {enemy_move_text}")
 

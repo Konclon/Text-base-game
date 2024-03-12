@@ -3,14 +3,14 @@ from functions import *
 import movesets
 
 def main():
-    moveset_dict = movesets.set2
-    moveset_name = moveset_dict["name"]
-    print(f"    playing with '{moveset_name}'")
+    moveset = movesets.set2
+    moveset_dict = moveset.moves_dict
+    print(f"    playing with '{moveset.name}'")
 
-    player = make_character(moveset_dict["player_health"])
-    enemy = make_character(moveset_dict["enemy_health"])
+    player = make_character(moveset.player_health)
+    enemy = make_character(moveset.enemy_health)
 
-    print(moveset_dict["intro_text"]) # already has newline front and back
+    print(moveset.intro_text) # already has newline front and back
 
     bot_or_player = input("    play with 1 - bot or 2 - player (1,2): ")
 
@@ -39,7 +39,7 @@ def main():
 
         if (player.health == 0) or (enemy.health == 0): break
 
-        moves_available = moveset_dict["moves"]
+        moves_available = moveset.moves
 
         print(move_option_display(moveset_dict,moves_available))
 
@@ -47,7 +47,7 @@ def main():
         print()
 
         if bot == True:
-            validation_result = validate_number(player_move,moveset_dict["moves"])
+            validation_result = validate_number(player_move,moves_available)
             if validation_result == "quit":
                 break
             elif validation_result == False:
@@ -55,8 +55,8 @@ def main():
             elif validation_result == True:
                 player_move = int(player_move)
 
-                enemy_move = bot_move(enemy_bot,enemy,moveset_dict)
-                damage_calculator(player, enemy, player_move, enemy_move, moveset_dict)
+                enemy_move = bot_move(enemy_bot,enemy,moveset)
+                damage_calculator(player, enemy, player_move, enemy_move, moveset)
 
                 moves_used_display(player_move, enemy_move, moveset_dict)
                 print()
@@ -71,7 +71,7 @@ def main():
                 print("    input should be two digits\n")
 
             # Validate input are numbers
-            elif (validate_number(player_move[0],numbers_arr) == False) or (validate_number(player_move[1],number_arr) == False):
+            elif (validate_number(player_move[0],numbers_arr) == False) or (validate_number(player_move[1],numbers_arr) == False):
                 print("    input was not numbers")
 
             else:
@@ -89,14 +89,14 @@ def main():
                 if player2_move == 0: player2_move = 5
 
                 # validate numbers are valid moves, eg move 5 does not exist
-                validate_first = validate_number(str(player1_move), moveset_dict["moves"])
-                validate_second = validate_number(str(player2_move), moveset_dict["moves"])
+                validate_first = validate_number(str(player1_move), moveset.moves)
+                validate_second = validate_number(str(player2_move), moveset.moves)
 
                 if (validate_first == False) or (validate_second == False):
                     print("    numbers out of range")
                 else:
-                    damage_calculator(player, enemy, player1_move, player2_move, moveset_dict)
-                    move_display(player1_move, player2_move, moveset_dict)
+                    damage_calculator(player, enemy, player1_move, player2_move, moveset)
+                    moves_used_display(player1_move, player2_move, moveset_dict)
                     print()
 
     if gameRunning == True:
