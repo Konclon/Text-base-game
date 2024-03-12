@@ -3,7 +3,11 @@ from functions import *
 import movesets
 
 def main():
+
+# change this for different movesetss
     moveset = movesets.set2
+# change this for different movesetss
+
     moveset_dict = moveset.moves_dict
     print(f"    playing with '{moveset.name}'")
 
