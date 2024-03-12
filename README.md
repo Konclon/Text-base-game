@@ -28,4 +28,7 @@ to play again just press uparrow and enter
 - tileable movesets (create ur own pls push req)
 - enter 'quit' to quit :)
 
-# Test
+<<<<<<< HEAD
+# Hiiii
+
+>>>>>>> 0af0f3de8944f6986088904f42a89a75fc0abd20
