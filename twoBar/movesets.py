@@ -31,8 +31,10 @@ set2 = {
     "player_health":200,
     "enemy_health":200,
     "intro_text": set2_intro_text,
-    1:[0,-30,"Small jab","additive"],
-    2:[-50,-80,"Big die","additive"],
-    3:[35,-15,"Life steal","additive"],
+    1:[0,-35,"Small jab","additive"], # difference quotient: 35
+    2:[-50,-90,"Big die","additive"], # difference quotient: 40
+    3:[15,-10,"Life steal","additive"], # difference quotient: 25
     4:[2,2,"cutInHalf","divisive"]
 }
+
+# balance changes 0.1
