@@ -1,3 +1,5 @@
+# change movesets at the top of the twoBar.py file
+
 class Moveset:
     def __init__(self, name, moves, player_health, enemy_health, intro_text, moves_dict):
         self.name = name
