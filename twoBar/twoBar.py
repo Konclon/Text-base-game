@@ -15,7 +15,8 @@ def main():
     bot_or_player = input("    play with 1 - bot or 2 - player (1,2): ")
 
     gameRunning = True
-    if validate_bot_or_player(bot_or_player) == False:
+
+    if (validate_bot_or_player(bot_or_player) == False) or (validate_bot_or_player(bot_or_player) == "quit"):
         print("\n    invalid input")
         gameRunning = False
     else:
@@ -26,7 +27,6 @@ def main():
             enemy_bot = 2
         elif bot_or_player == 2:
             bot = False
-
     print()
 
     while gameRunning == True:
@@ -40,6 +40,9 @@ def main():
         if (player.health == 0) or (enemy.health == 0): break
 
         moves_available = moveset_dict["moves"]
+
+        print(move_option_display(moveset_dict,moves_available))
+
         player_move = input(f"    What skill would you like to use {moves_available}: ")
         print()
 
@@ -55,7 +58,7 @@ def main():
                 enemy_move = bot_move(enemy_bot,enemy,moveset_dict)
                 damage_calculator(player, enemy, player_move, enemy_move, moveset_dict)
 
-                move_display(player_move, enemy_move, moveset_dict)
+                moves_used_display(player_move, enemy_move, moveset_dict)
                 print()
 
         if bot == False:
@@ -96,23 +99,24 @@ def main():
                     move_display(player1_move, player2_move, moveset_dict)
                     print()
 
-    if bot == True:
-        if (enemy.health == 0) and (player.health == 0):
-            print("    draw lmao")
-        elif enemy.health == 0:
-            print("    player win yay")
-        elif player.health == 0:
-            print("    player lost :(")
-        print()
+    if gameRunning == True:
+        if bot == True:
+            if (enemy.health == 0) and (player.health == 0):
+                print("    draw lmao")
+            elif enemy.health == 0:
+                print("    player win yay")
+            elif player.health == 0:
+                print("    player lost :(")
+            print()
 
-    if not bot:
-        if (enemy.health == 0) and (player.health == 0):
-            print("    draw lmao")
-        elif enemy.health == 0:
-            print("    player1 win yay")
-        elif player.health == 0:
-            print("    player2 win yay")
-        print()
+        if not bot:
+            if (enemy.health == 0) and (player.health == 0):
+                print("    draw lmao")
+            elif enemy.health == 0:
+                print("    player1 win yay")
+            elif player.health == 0:
+                print("    player2 win yay")
+            print()
 
 def validate_bot_or_player(bot_or_player):
     validation_result = validate_number(bot_or_player,[1,2])

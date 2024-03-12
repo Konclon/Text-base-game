@@ -26,6 +26,17 @@ def validate_number(variable,array):
     else:
         return True
 
+def move_option_display(moveset_dict,moves_available):
+    moves_text = ["    |"]
+
+    for move_number in moves_available:
+        move_text = moveset_dict[move_number][2]
+        moves_text.append(f" {move_number}: {move_text} |")
+
+    moves_text = "".join(moves_text)
+    return moves_text
+
+
 def damage_calculator(player, enemy, player_move, enemy_move, moveset):
     # additive
     if moveset[player_move][3] == "additive":
@@ -81,7 +92,7 @@ def bot_move(enemy_bot,enemy,moveset_dict):
 
             return random.choice(healing_moves)
 
-def move_display(player_move, enemy_move, moveset):
+def moves_used_display(player_move, enemy_move, moveset):
     player_move_text = moveset[player_move][2]
     enemy_move_text = moveset[enemy_move][2]
 
