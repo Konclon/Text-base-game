@@ -62,43 +62,45 @@ def damage_calculator(player, enemy, player_move, enemy_move, moveset):
         enemy.health = int(enemy.health / moveset.moves_dict[enemy_move]["user"])
         player.health = int(player.health / moveset.moves_dict[enemy_move]["opponent"])
 
-    player_move_cooldown = moveset.moves_dict[enemy_move]["cooldown"]
+    player_move_cooldown = moveset.moves_dict[player_move]["cooldown"]
     enemy_move_cooldown = moveset.moves_dict[enemy_move]["cooldown"]
 
     player.cooldowns[player_move] = (player_move_cooldown + 1)
-    enemy.cooldowns[player_move] = (enemy_move_cooldown + 1)
+    enemy.cooldowns[enemy_move] = (enemy_move_cooldown + 1)
 
-def bot_move(enemy_bot,enemy,moveset):
-    if enemy_bot == 1:
-        if enemy.health > 30:
-            enemyMove = random.choice([1,2])
-        if enemy.health <= 30:
-            enemyMove = random.choice([1,3])
-        return enemyMove
+def bot_move(enemy,moveset):
+    damages = []
+    moveset_dict = moveset.moves_dict
+    enemy_moves_available = []
+ 
+    for move,cooldown in enemy.cooldowns.items():
+        if cooldown == 0:
+            enemy_moves_available.append(move)
+    
+    # find max damage bot may receive
+    for move in moveset.moves:
+        if moveset_dict[move]["type"] == "additive":
+            damages.append(moveset_dict[move]["opponent"])
+    max_damage = min(damages) # because negative numbers (-50 does more damage than -10)
 
-    if enemy_bot == 2: # main bot, avoids health < highest damaging move
-        damages = []
-        moveset_dict = moveset.moves_dict
+    # if health high do whatever
+    if enemy.health > abs(max_damage):
+        return random.choice(enemy_moves_available)
 
-        for move in moveset.moves:
+    if enemy.health <= abs(max_damage):
+        healing_moves = []
+        for move in enemy_moves_available:
             if moveset_dict[move]["type"] == "additive":
-                damages += [moveset_dict[move]["opponent"]]
-        max_damage = min(damages) # because negative numbers (-50 does more damage than -10)
+                healing_to_bot = moveset_dict[move]["user"]
 
-        if enemy.health > abs(max_damage):
-            return random.choice(moveset.moves)
+                if healing_to_bot > 0:
+                    healing_moves += [move]
 
-        if enemy.health <= abs(max_damage):
-
-            healing_moves = []
-            for move in moveset.moves:
-                if moveset_dict[move]["type"] == "additive":
-                    healing_to_bot = moveset_dict[move]["user"]
-
-                    if healing_to_bot > 0:
-                        healing_moves += [move]
-
+        if len(healing_moves) > 0:
             return random.choice(healing_moves)
+        else:
+            return random.choice(enemy_moves_available)
+
 
 def moves_used_display(player_move, enemy_move, moveset_dict):
     player_move_text = moveset_dict[player_move]["name"]

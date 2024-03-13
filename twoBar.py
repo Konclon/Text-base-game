@@ -43,22 +43,18 @@ def main():
 
         if (player.health == 0) or (enemy.health == 0): break
 
+        player_moves_available = []
         for move,cooldown in player.cooldowns.items():
-            if cooldown > 0:
-                player.cooldowns[move] += -1
-        for move,cooldown in enemy.cooldowns.items():
-            if cooldown > 0:
-                enemy.cooldowns[move] += -1
+            if cooldown == 0:
+                player_moves_available.append(move)
 
-        moves_available = moveset.moves
+        print(move_option_display(moveset_dict,player_moves_available))
 
-        print(move_option_display(moveset_dict,moves_available))
-
-        player_move = input(f"    What skill would you like to use {moves_available}: ")
+        player_move = input(f"    What skill would you like to use {player_moves_available}: ")
         print()
 
         if bot == True:
-            validation_result = validate_number(player_move,moves_available)
+            validation_result = validate_number(player_move,player_moves_available)
             if validation_result == "quit":
                 break
             elif validation_result == False:
@@ -66,10 +62,12 @@ def main():
             elif validation_result == True:
                 player_move = int(player_move)
 
-                enemy_move = bot_move(enemy_bot,enemy,moveset)
+                enemy_move = bot_move(enemy,moveset)
                 damage_calculator(player, enemy, player_move, enemy_move, moveset)
 
                 moves_used_display(player_move, enemy_move, moveset_dict)
+                cooldown_reduce(player,enemy)
+                print(enemy.cooldowns)
                 print()
 
         if bot == False:
@@ -100,14 +98,15 @@ def main():
                 if player2_move == 0: player2_move = 5
 
                 # validate numbers are valid moves, eg move 5 does not exist
-                validate_first = validate_number(str(player1_move), moveset.moves)
-                validate_second = validate_number(str(player2_move), moveset.moves)
+                validate_first = validate_number(str(player1_move), player_moves_available)
+                validate_second = validate_number(str(player2_move), player_moves_available)
 
                 if (validate_first == False) or (validate_second == False):
                     print("    numbers out of range")
                 else:
                     damage_calculator(player, enemy, player1_move, player2_move, moveset)
                     moves_used_display(player1_move, player2_move, moveset_dict)
+                    cooldown_reduce(player,enemy)
                     print()
 
     if gameRunning == True:
@@ -135,6 +134,14 @@ def validate_bot_or_player(bot_or_player):
         return False
     else:
         return True
+
+def cooldown_reduce(player,enemy):
+    for move,cooldown in player.cooldowns.items():
+        if cooldown > 0:
+            player.cooldowns[move] += -1
+    for move,cooldown in enemy.cooldowns.items():
+        if cooldown > 0:
+            enemy.cooldowns[move] += -1
 
 if __name__ == "__main__":
     main()
