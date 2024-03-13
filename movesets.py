@@ -20,9 +20,9 @@ set1_intro_text = """
     Skill 3: Heal Hacks. Player +15
 """
 set1_moves_dict = {
-    1: {"user": 0, "opponent": -10, "type": "additive", "name": "Zap"},
-    2: {"user": -10, "opponent": -20, "type": "additive", "name": "Lightning"},
-    3: {"user": 15, "opponent": 0, "type": "additive", "name": "Heal Hacks"},
+    1: {"user": 0, "opponent": -10, "type": "additive", "cooldown": 0, "name": "Zap"},
+    2: {"user": -10, "opponent": -20, "type": "additive", "cooldown": 0, "name": "Lightning"},
+    3: {"user": 15, "opponent": 0, "type": "additive", "cooldown": 0, "name": "Heal Hacks"},
 }
 set1 = Moveset("set1", [1, 2, 3], 100, 100, set1_intro_text, set1_moves_dict)
 
@@ -34,10 +34,10 @@ set2_intro_text = """
     Skill 4: cutInHalf, cuts both healthbars in half
 """
 set2_moves_dict = {
-    1: {"user": 0, "opponent": -35, "type": "additive", "name": "Small jab"},
-    2: {"user": -50, "opponent": -90, "type": "additive", "name": "Big die"},
-    3: {"user": 15, "opponent": -10, "type": "additive", "name": "Life steal"},
-    4: {"user": 2, "opponent": 2, "type": "divisive", "name": "cutInHalf"},
+    1: {"user": 0, "opponent": -35, "type": "additive", "cooldown": 0, "name": "Small jab"},
+    2: {"user": -50, "opponent": -90, "type": "additive", "cooldown": 0, "name": "Big die"},
+    3: {"user": 15, "opponent": -10, "type": "additive", "cooldown": 1, "name": "Life steal"},
+    4: {"user": 2, "opponent": 2, "type": "divisive", "cooldown": 0, "name": "cutInHalf"},
 }
 set2 = Moveset("set2", [1, 2, 3, 4], 200, 200, set2_intro_text, set2_moves_dict)
 # balance change v0.1

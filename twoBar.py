@@ -43,6 +43,13 @@ def main():
 
         if (player.health == 0) or (enemy.health == 0): break
 
+        for move,cooldown in player.cooldowns.items():
+            if cooldown > 0:
+                player.cooldowns[move] += -1
+        for move,cooldown in enemy.cooldowns.items():
+            if cooldown > 0:
+                enemy.cooldowns[move] += -1
+
         moves_available = moveset.moves
 
         print(move_option_display(moveset_dict,moves_available))

@@ -62,6 +62,12 @@ def damage_calculator(player, enemy, player_move, enemy_move, moveset):
         enemy.health = int(enemy.health / moveset.moves_dict[enemy_move]["user"])
         player.health = int(player.health / moveset.moves_dict[enemy_move]["opponent"])
 
+    player_move_cooldown = moveset.moves_dict[enemy_move]["cooldown"]
+    enemy_move_cooldown = moveset.moves_dict[enemy_move]["cooldown"]
+
+    player.cooldowns[player_move] = (player_move_cooldown + 1)
+    enemy.cooldowns[player_move] = (enemy_move_cooldown + 1)
+
 def bot_move(enemy_bot,enemy,moveset):
     if enemy_bot == 1:
         if enemy.health > 30:
