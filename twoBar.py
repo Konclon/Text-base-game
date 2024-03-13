@@ -11,8 +11,8 @@ def main():
     moveset_dict = moveset.moves_dict
     print(f"    playing with '{moveset.name}'")
 
-    player = make_character(moveset.player_health)
-    enemy = make_character(moveset.enemy_health)
+    player = make_character(moveset.player_health,moveset.moves)
+    enemy = make_character(moveset.enemy_health,moveset.moves)
 
     print(moveset.intro_text) # already has newline front and back
 
