@@ -1,32 +1,38 @@
 import random
 
-def health_display(player,enemy):
-    if player.health <= 0: player.health = 0
-    if enemy.health <= 0: enemy.health = 0
 
-    print("    ",end="")
-    print(f"player [{pipes(player)}] {player.health}",end="")
-    print("    ",end="")
+def health_display(player, enemy):
+    if player.health <= 0:
+        player.health = 0
+    if enemy.health <= 0:
+        enemy.health = 0
+
+    print("    ", end="")
+    print(f"player [{pipes(player)}] {player.health}", end="")
+    print("    ", end="")
     print(f"enemy [{pipes(enemy)}] {enemy.health}")
+
 
 def pipes(character):
     health = character.health
     pipes = []
-    for i in range (int(health/5)):
+    for _ in range(int(health / 5)):
         pipes.append("|")
     return "".join(pipes)
 
-def validate_number(variable,array):
+
+def validate_number(variable, array):
     if variable.lower() == "quit":
         return "quit"
-    elif variable.isdigit() == False:
+    elif not variable.isdigit():
         return False
-    elif (int(variable) not in array):
+    elif int(variable) not in array:
         return False
     else:
         return True
 
-def move_option_display(moveset_dict,moves_available):
+
+def move_option_display(moveset_dict, moves_available):
     moves_text = ["    |"]
 
     for move_number in moves_available:
@@ -65,23 +71,26 @@ def damage_calculator(player, enemy, player_move, enemy_move, moveset):
     player_move_cooldown = moveset.moves_dict[player_move]["cooldown"]
     enemy_move_cooldown = moveset.moves_dict[enemy_move]["cooldown"]
 
-    player.cooldowns[player_move] = (player_move_cooldown + 1)
-    enemy.cooldowns[enemy_move] = (enemy_move_cooldown + 1)
+    player.cooldowns[player_move] = player_move_cooldown + 1
+    enemy.cooldowns[enemy_move] = enemy_move_cooldown + 1
 
-def bot_move(enemy,moveset):
+
+def bot_move(enemy, moveset):
     damages = []
     moveset_dict = moveset.moves_dict
     enemy_moves_available = []
- 
-    for move,cooldown in enemy.cooldowns.items():
+
+    for move, cooldown in enemy.cooldowns.items():
         if cooldown == 0:
             enemy_moves_available.append(move)
-    
+
     # find max damage bot may receive
     for move in moveset.moves:
         if moveset_dict[move]["type"] == "additive":
             damages.append(moveset_dict[move]["opponent"])
-    max_damage = min(damages) # because negative numbers (-50 does more damage than -10)
+    max_damage = min(
+        damages
+    )  # because negative numbers (-50 does more damage than -10)
 
     # if health high do whatever
     if enemy.health > abs(max_damage):
@@ -107,5 +116,3 @@ def moves_used_display(player_move, enemy_move, moveset_dict):
     enemy_move_text = moveset_dict[enemy_move]["name"]
 
     print(f"    Player used {player_move_text}, Enemy used {enemy_move_text}")
-
-
