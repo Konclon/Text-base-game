@@ -1,5 +1,5 @@
 from character import make_character
-from functions import (
+from small_functions import (
     health_display,
     validate_number,
     move_option_display,
