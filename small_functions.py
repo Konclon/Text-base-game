@@ -1,18 +1,6 @@
 import random
 
 
-def health_display(player, enemy):
-    if player.health <= 0:
-        player.health = 0
-    if enemy.health <= 0:
-        enemy.health = 0
-
-    print("    ", end="")
-    print(f"player [{pipes(player)}] {player.health}", end="")
-    print("    ", end="")
-    print(f"enemy [{pipes(enemy)}] {enemy.health}")
-
-
 def pipes(character):
     health = character.health
     pipes = []
